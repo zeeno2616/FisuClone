@@ -24,6 +24,9 @@ function AppNavigation(): React.JSX.Element {
             height: 60,
             paddingBottom: 5,
           },
+          headerStyle: {
+            height: 60,
+          },
           tabBarLabelStyle: {
             marginBottom: 5,
           },
@@ -32,60 +35,58 @@ function AppNavigation(): React.JSX.Element {
           name="Home"
           component={HomeScreen}
           options={{
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: ({focused}) => (
-                <NavBarIcon
-                  name="home"
-                  size={30}
-                  color={focused ? '#000000' : '#000000'}
-                />
-              ),
+              <NavBarIcon
+                name="home"
+                size={30}
+                color={focused ? '#ff0000' : '#000000'}
+              />
+            ),
           }}
         />
-          <Tab.Screen
-            name="Competition"
-            component={CompetitionScreen}
-            options={{
-              headerShown: false,
-              tabBarIcon: ({focused}) => (
-                  <NavBarIcon
-                    name="trophy-variant"
-                    size={30}
-                    color={focused ? '#000000' : '#000000'}
-                  />
-                ),
-            }}
-          />
-<Tab.Screen
+        <Tab.Screen
+          name="Competition"
+          component={CompetitionScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({focused}) => (
+              <NavBarIcon
+                name="trophy-variant"
+                size={30}
+                color={focused ? '#000000' : '#000000'}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="Calendar"
           component={CalendarScreen}
           options={{
             headerShown: false,
             tabBarIcon: ({focused}) => (
-                <NavBarIcon
-                  name="calendar"
-                  size={30}
-                  color={focused ? '#000000' : '#000000'}
-                />
-              ),
+              <NavBarIcon
+                name="calendar"
+                size={30}
+                color={focused ? '#000000' : '#000000'}
+              />
+            ),
           }}
         />
-<Tab.Screen
+        <Tab.Screen
           name="Profile"
           component={ProfileScreen}
           options={{
             headerShown: false,
             tabBarIcon: ({focused}) => (
-                <NavBarIcon
-                  name="snowman"
-                  size={30}
-                  color={focused ? '#000000' : '#000000'}
-                />
-              ),
+              <NavBarIcon
+                name="snowman"
+                size={30}
+                color={focused ? '#000000' : '#000000'}
+              />
+            ),
           }}
         />
-        
-
       </Tab.Navigator>
     </NavigationContainer>
   );
