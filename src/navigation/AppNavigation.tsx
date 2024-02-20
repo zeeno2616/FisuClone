@@ -14,7 +14,7 @@ function AppNavigation(): React.JSX.Element {
       <Tab.Navigator
         initialRouteName="Home"
         screenOptions={{
-          tabBarActiveTintColor: '#000000',
+          tabBarActiveTintColor: '#7a7afa',
           tabBarInactiveTintColor: '#000000',
           tabBarStyle: {
             backgroundColor: '#FFFFFF',
@@ -40,7 +40,7 @@ function AppNavigation(): React.JSX.Element {
               <NavBarIcon
                 name="home"
                 size={30}
-                color={focused ? '#ff0000' : '#000000'}
+                color={focused ? '#7a7afa' : '#000000'}
               />
             ),
           }}
@@ -54,7 +54,7 @@ function AppNavigation(): React.JSX.Element {
               <NavBarIcon
                 name="trophy-variant"
                 size={30}
-                color={focused ? '#000000' : '#000000'}
+                color={focused ? '#7a7afa' : '#000000'}
               />
             ),
           }}
@@ -68,7 +68,7 @@ function AppNavigation(): React.JSX.Element {
               <NavBarIcon
                 name="calendar"
                 size={30}
-                color={focused ? '#000000' : '#000000'}
+                color={focused ? '#7a7afa' : '#000000'}
               />
             ),
           }}
@@ -82,7 +82,7 @@ function AppNavigation(): React.JSX.Element {
               <NavBarIcon
                 name="snowman"
                 size={30}
-                color={focused ? '#000000' : '#000000'}
+                color={focused ? '#7a7afa' : '#000000'}
               />
             ),
           }}

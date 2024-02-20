@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface Props {
@@ -18,16 +18,18 @@ const RoundIcon: React.FC<Props> = ({
   text = 'Test', // Default text value
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={[styles.iconContainer, {backgroundColor}]}>
-        <MaterialCommunityIcons
-          name={iconName}
-          size={iconSize}
-          color={iconColor}
-        />
+    <TouchableOpacity>
+      <View style={styles.container}>
+        <View style={[styles.iconContainer, {backgroundColor}]}>
+          <MaterialCommunityIcons
+            name={iconName}
+            size={iconSize}
+            color={iconColor}
+          />
+        </View>
+        <Text style={styles.iconText}>{text}</Text>
       </View>
-      <Text style={styles.iconText}>{text}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
