@@ -22,3 +22,4 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
 });
+export default globalStyles;
