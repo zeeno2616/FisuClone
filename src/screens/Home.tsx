@@ -1,43 +1,56 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text, FlatList} from 'react-native';
 
 import RoundIcon from '../components/RoundIcon';
+import RectangularButton from '../components/RectangleButton';
 interface ScreenProps {}
+
+const topIcons = [
+  {iconName: 'information-variant', text: 'Info'},
+  {iconName: 'timeline-clock-outline', text: 'Schedule'},
+  {iconName: 'medical-bag', text: 'Health'},
+  {iconName: 'map-marker-outline', text: 'Venue'},
+  {iconName: 'cash', text: 'Finance'},
+  {iconName: 'airplane', text: 'Travel'},
+  {iconName: 'star', text: 'Points'},
+  {iconName: 'phone', text: 'Contacts'},
+];
+
+const bottomIcons = [
+  {text: 'History'},
+  {text: 'Mascot'},
+  {text: 'Emblem'},
+  {text: 'Venues'},
+  {text: 'Sports'},
+  {text: 'Sponsors'},
+];
 
 const HomeScreen: React.FC<ScreenProps> = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <RoundIcon
-          iconName="information-variant"
-          backgroundColor="#48abe0"
-          text="Info"
+        <FlatList
+          data={topIcons}
+          numColumns={4} // Set to the number of columns you want (4 in this case)
+          renderItem={({item}) => (
+            <RoundIcon
+              iconName={item.iconName}
+              text={item.text}
+              backgroundColor="#7a7afa"
+              // Add other props as needed
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
         />
-        <RoundIcon
-          iconName="timeline-clock-outline"
-          backgroundColor="#48abe0"
-          text="Schedule"
-        />
-        <RoundIcon
-          iconName="medical-bag"
-          backgroundColor="#48abe0"
-          text="Health"
-        />
-        <RoundIcon iconName="location" backgroundColor="#48abe0" text="Venue" />
       </View>
-      <View style={styles.topContainer}>
-        <RoundIcon iconName="cash" backgroundColor="#48abe0" text="Finance" />
-        <RoundIcon
-          iconName="airplane"
-          backgroundColor="#48abe0"
-          text="Travel"
+      <Text style={styles.subheading}>Encyclopedia</Text>
+      <View style={styles.bottomContainer}>
+        <FlatList
+          data={bottomIcons}
+          numColumns={2}
+          renderItem={({item}) => <RectangularButton text={item.text} />}
+          keyExtractor={(item, index) => index.toString()}
         />
-        <RoundIcon iconName="star" backgroundColor="#48abe0" text="Points" />
-        <RoundIcon iconName="phone" backgroundColor="#48abe0" text="Contacts" />
-      </View>
-
-      <View style={styles.container}>
-        <Text style={styles.text}>{'Home'}</Text>
       </View>
     </View>
   );
@@ -46,18 +59,35 @@ export const styles = StyleSheet.create({
   container: {
     paddingTop: 10,
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#FFFFFF',
   },
   topContainer: {
-    flexDirection: 'row',
     width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center', // Align items to the center if necessary
-    marginVertical: 8,
-    paddingHorizontal: 30,
+    backgroundColor: '#fff',
+    alignItems: 'center', // Center items horizontally
+    justifyContent: 'space-between', // Arrange items in the center
+    marginBottom: 10,
   },
+  subheading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000000',
+    marginVertical: 10,
+    paddingHorizontal: 10,
+  },
+  bottomContainer: {
+    flex: 1,
+    alignItems: 'center', // Center items horizontally
+  },
+  row: {
+    width: '100%',
+    paddingHorizontal: 10,
+    flexDirection: 'row', // Arrange items horizontally
+    marginBottom: 10, // Add margin between rows
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
   scrollContainer: {
     alignItems: 'center',
     backgroundColor: '#FFFFFF',

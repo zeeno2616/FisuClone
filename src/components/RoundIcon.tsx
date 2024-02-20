@@ -50,6 +50,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 27.5,
+    marginHorizontal: 16,
+    marginVertical: 10,
   },
   iconText: {
     fontSize: 16,
