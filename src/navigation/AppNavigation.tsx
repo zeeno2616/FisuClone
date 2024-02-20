@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/Home';
 import CalendarScreen from '../screens/Calendar';
 import ProfileScreen from '../screens/Profile';
+import CompetitionScreen from '../screens/Competition';
 import NavBarIcon from '../components/NavBarIcon';
 function AppNavigation(): React.JSX.Element {
   const Tab = createBottomTabNavigator();
@@ -41,6 +42,20 @@ function AppNavigation(): React.JSX.Element {
               ),
           }}
         />
+          <Tab.Screen
+            name="Competition"
+            component={CompetitionScreen}
+            options={{
+              headerShown: false,
+              tabBarIcon: ({focused}) => (
+                  <NavBarIcon
+                    name="trophy-variant"
+                    size={30}
+                    color={focused ? '#000000' : '#000000'}
+                  />
+                ),
+            }}
+          />
 <Tab.Screen
           name="Calendar"
           component={CalendarScreen}
