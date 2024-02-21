@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   ScrollView,
@@ -17,16 +17,29 @@ interface Props {
 }
 
 const Calendar: React.FC<Props> = () => {
+  const scrollViewRef = useRef<ScrollView>(null);
+  const [scrollY, setScrollY] = useState(0);
+  const [selectedDate, setSelectedDate] = useState('');
+  const handleSelectDate = (newSelectedDate: string) => {
+    setSelectedDate(newSelectedDate); // Adjust the offset value as per your needs
+  };
   const dates = ['Feb 20', 'Feb 21', 'Feb 22', 'Feb 23', 'Feb 24']; // Example dates, you can replace with your actual data
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dateItemHeight = 120;
+  const [isDropdownOpen, setIsDropdownOpen] = useState<{[key: string]: boolean}>({}); // Use object for dropdown state
 
   const toggleDropdown = (selectedDate: string) => {
     setIsDropdownOpen(prevState => ({
       ...prevState,
       [selectedDate]: !prevState[selectedDate],
     }));
+    const dropdownMenuOffset = 150; // Adjust the offset as needed
+    const dateItemIndex = dates.indexOf(selectedDate);
+    if (scrollViewRef.current && isDropdownOpen[selectedDate]) {
+      const yOffset = dateItemIndex * dateItemHeight + dropdownMenuOffset;
+      scrollViewRef.current.scrollTo({ y: yOffset, animated: true });
+    }
   };
-
+  
   const renderDateItem = (date: string) => {
     // Example data for dropdown menu, you can replace with your actual data
     const dropdownData = [
@@ -34,7 +47,8 @@ const Calendar: React.FC<Props> = () => {
       {time: '02:00 PM', event: 'Lunch'},
       {time: '05:00 PM', event: 'Gym'},
     ];
-
+    
+    const isItemSelected = selectedDate === date;
     return (
       <View style={styles.dateItem} key={date}>
         <Text style={styles.dateText}>{date}</Text>
@@ -57,9 +71,13 @@ const Calendar: React.FC<Props> = () => {
       </View>
     );
   };
-
+  
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+    <ScrollView
+      contentContainerStyle={styles.scrollContainer}
+      ref={scrollViewRef}
+      scrollEventThrottle={16}
+    >
       <View style={styles.dateItemContainer}>
         {dates.map(date => renderDateItem(date))}
       </View>
@@ -76,6 +94,7 @@ const styles = StyleSheet.create({
   dateItemContainer: {
     marginHorizontal: 20,
     marginVertical: 10,
+    flexGrow: 1,
   },
   dateItem: {
     flexDirection: 'row',
@@ -94,6 +113,8 @@ const styles = StyleSheet.create({
     borderRightWidth: 5, // Add right border width
     borderLeftColor: '#7a7afa', // Color of the left border
     borderRightColor: '#7a7afa', // Color of the right border
+    position: 'relative', // Add position property
+    zIndex: 1, // Add zIndex property
   },
   dateText: {
     fontSize: 20,
@@ -103,10 +124,11 @@ const styles = StyleSheet.create({
   },
   dropdownMenu: {
     position: 'absolute',
-    top: '100%',
+    top: '100%', // Position below the date item
+    left: 0,
     right: 0,
     backgroundColor: '#fff',
-    zIndex: 1,
+    zIndex: 2,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,

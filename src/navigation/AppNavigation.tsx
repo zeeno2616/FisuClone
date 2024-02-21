@@ -63,7 +63,7 @@ function AppNavigation(): React.JSX.Element {
           name="Calendar"
           component={CalendarScreen}
           options={{
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: ({focused}) => (
               <NavBarIcon
                 name="calendar"
