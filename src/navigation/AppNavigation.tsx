@@ -2,11 +2,11 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/Home';
 import CalendarScreen from '../screens/Calendar';
 import ProfileScreen from '../screens/Profile';
 import CompetitionScreen from '../screens/Competition';
 import NavBarIcon from '../components/NavBarIcon';
+import StackNavigation from './StackNavigation';
 function AppNavigation(): React.JSX.Element {
   const Tab = createBottomTabNavigator();
   return (
@@ -33,9 +33,9 @@ function AppNavigation(): React.JSX.Element {
         }}>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={StackNavigation}
           options={{
-            headerShown: true,
+            headerShown: false,
             tabBarIcon: ({focused}) => (
               <NavBarIcon
                 name="home"

@@ -8,6 +8,7 @@ interface Props {
   iconColor?: string;
   backgroundColor?: string;
   text?: string; // Added text prop
+  onPress: () => void; // Add onPress prop of type function
 }
 
 const RoundIcon: React.FC<Props> = ({
@@ -16,9 +17,10 @@ const RoundIcon: React.FC<Props> = ({
   iconColor = '#fff',
   backgroundColor = '#fff',
   text = 'Test', // Default text value
+  onPress,
 }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <View style={[styles.iconContainer, {backgroundColor}]}>
           <MaterialCommunityIcons

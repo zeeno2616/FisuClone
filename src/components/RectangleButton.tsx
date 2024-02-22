@@ -4,14 +4,16 @@ import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 interface Props {
   text: string;
   image?: string; // Make image prop optional
+  onPress: () => void; // Add onPress prop of type function
 }
 
 const RectangularButton: React.FC<Props> = ({
   image = require('../images/test.png'),
   text = 'Rectangular Button',
+  onPress, // Destructure onPress from props
 }) => {
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.topLeft}>
         <Text style={styles.text}>{text}</Text>
       </View>

@@ -25,7 +25,9 @@ const Calendar: React.FC<Props> = () => {
   };
   const dates = ['Feb 20', 'Feb 21', 'Feb 22', 'Feb 23', 'Feb 24']; // Example dates, you can replace with your actual data
   const dateItemHeight = 120;
-  const [isDropdownOpen, setIsDropdownOpen] = useState<{[key: string]: boolean}>({}); // Use object for dropdown state
+  const [isDropdownOpen, setIsDropdownOpen] = useState<{
+    [key: string]: boolean;
+  }>({}); // Use object for dropdown state
 
   const toggleDropdown = (selectedDate: string) => {
     setIsDropdownOpen(prevState => ({
@@ -36,10 +38,10 @@ const Calendar: React.FC<Props> = () => {
     const dateItemIndex = dates.indexOf(selectedDate);
     if (scrollViewRef.current && isDropdownOpen[selectedDate]) {
       const yOffset = dateItemIndex * dateItemHeight + dropdownMenuOffset;
-      scrollViewRef.current.scrollTo({ y: yOffset, animated: true });
+      scrollViewRef.current.scrollTo({y: yOffset, animated: true});
     }
   };
-  
+
   const renderDateItem = (date: string) => {
     // Example data for dropdown menu, you can replace with your actual data
     const dropdownData = [
@@ -47,7 +49,7 @@ const Calendar: React.FC<Props> = () => {
       {time: '02:00 PM', event: 'Lunch'},
       {time: '05:00 PM', event: 'Gym'},
     ];
-    
+
     const isItemSelected = selectedDate === date;
     return (
       <View style={styles.dateItem} key={date}>
@@ -71,13 +73,12 @@ const Calendar: React.FC<Props> = () => {
       </View>
     );
   };
-  
+
   return (
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       ref={scrollViewRef}
-      scrollEventThrottle={16}
-    >
+      scrollEventThrottle={16}>
       <View style={styles.dateItemContainer}>
         {dates.map(date => renderDateItem(date))}
       </View>
@@ -141,3 +142,17 @@ const styles = StyleSheet.create({
 });
 
 export default Calendar;
+// import React from 'react';
+// import {View, Text} from 'react-native';
+// import {globalStyles} from '../styles/PageStyles';
+// interface ScreenProps {}
+
+// const CompetitionScreen: React.FC<ScreenProps> = () => {
+//   return (
+//     <View style={globalStyles.container}>
+//       <Text style={globalStyles.text}>{'Competition Info'}</Text>
+//     </View>
+//   );
+// };
+
+// export default CompetitionScreen;

@@ -1,8 +1,11 @@
 import React from 'react';
 import {View, StyleSheet, Text, FlatList} from 'react-native';
-
+import {StackNavigationProp} from '@react-navigation/stack'; // Import StackNavigationProp
+import {RootStackParamList} from '../navigation/StackNavigation'; // Import RootStackParamList type
 import RoundIcon from '../components/RoundIcon';
 import RectangularButton from '../components/RectangleButton';
+import {useNavigation} from '@react-navigation/native';
+
 interface ScreenProps {}
 
 const topIcons = [
@@ -26,18 +29,25 @@ const bottomIcons = [
 ];
 
 const HomeScreen: React.FC<ScreenProps> = () => {
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>(); // Define type for navigation
+
+  const handleButtonPress = () => {
+    navigation.navigate('Test');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <FlatList
           data={topIcons}
-          numColumns={4} // Set to the number of columns you want (4 in this case)
+          numColumns={4}
           renderItem={({item}) => (
             <RoundIcon
               iconName={item.iconName}
               text={item.text}
               backgroundColor="#7a7afa"
-              // Add other props as needed
+              onPress={handleButtonPress}
             />
           )}
           keyExtractor={(item, index) => index.toString()}
@@ -48,13 +58,16 @@ const HomeScreen: React.FC<ScreenProps> = () => {
         <FlatList
           data={bottomIcons}
           numColumns={2}
-          renderItem={({item}) => <RectangularButton text={item.text} />}
+          renderItem={({item}) => (
+            <RectangularButton text={item.text} onPress={handleButtonPress} />
+          )}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
     </View>
   );
 };
+
 export const styles = StyleSheet.create({
   container: {
     paddingTop: 10,
@@ -64,8 +77,8 @@ export const styles = StyleSheet.create({
   topContainer: {
     width: '100%',
     backgroundColor: '#fff',
-    alignItems: 'center', // Center items horizontally
-    justifyContent: 'space-between', // Arrange items in the center
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 10,
   },
   subheading: {
@@ -77,25 +90,7 @@ export const styles = StyleSheet.create({
   },
   bottomContainer: {
     flex: 1,
-    alignItems: 'center', // Center items horizontally
-  },
-  row: {
-    width: '100%',
-    paddingHorizontal: 10,
-    flexDirection: 'row', // Arrange items horizontally
-    marginBottom: 10, // Add margin between rows
-    justifyContent: 'space-between',
     alignItems: 'center',
-  },
-
-  scrollContainer: {
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000000',
   },
 });
 
