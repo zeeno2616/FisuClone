@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   ScrollView,
@@ -26,57 +26,39 @@ const Calendar: React.FC<Props> = () => {
   };
   const dates = ['Feb 20', 'Feb 21', 'Feb 22', 'Feb 23', 'Feb 24']; // Example dates, you can replace with your actual data
   const dateItemHeight = 120;
-  const [isDropdownOpen, setIsDropdownOpen] = useState<{
-    [key: string]: boolean;
-  }>({}); // Use object for dropdown state
-
-  const toggleDropdown = (selectedDate: string) => {
-    setIsDropdownOpen(prevState => ({
-      ...prevState,
-      [selectedDate]: !prevState[selectedDate],
-    }));
-    const dropdownMenuOffset = 150; // Adjust the offset as needed
-    const dateItemIndex = dates.indexOf(selectedDate);
-    if (scrollViewRef.current && isDropdownOpen[selectedDate]) {
-      const yOffset = dateItemIndex * dateItemHeight + dropdownMenuOffset;
-      scrollViewRef.current.scrollTo({y: yOffset, animated: true});
-    }
-  };
 
   const renderDateItem = (date: string) => {
     // Example data for dropdown menu, you can replace with your actual data
     const dropdownData = [
-      {time: '10:00 AM', event: 'Meeting'},
-      {time: '02:00 PM', event: 'Lunch'},
-      {time: '05:00 PM', event: 'Gym'},
+      { time: '10:00 AM', event: 'Meeting' },
+      { time: '02:00 PM', event: 'Lunch' },
+      { time: '05:00 PM', event: 'Gym' },
     ];
 
-    const isItemSelected = selectedDate === date;
     return (
-      <View style={styles.dateItem} key={date}>
-        <Text style={styles.dateText}>{date}</Text>
-
-        <TouchableOpacity
-          style={styles.dropdownButton}
-          onPress={() => {
-            Alert.alert(
-              'Schedule',
-              dropdownData
-                .map(item => `${item.time} - ${item.event}`)
-                .join('\n'),
-              [
-                {
-                  text: 'OK',
-                  style: 'cancel',
-                  onPress: () => console.log('OK Pressed'),
-                },
-              ],
-              {cancelable: false},
-            );
-          }}>
-          <MaterialCommunityIcons name="chevron-down" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={styles.dateItem}
+        key={date}
+        onPress={() => {
+          Alert.alert(
+            'Schedule',
+            dropdownData
+              .map((item) => `${item.time} - ${item.event}`)
+              .join('\n'),
+            [
+              {
+                text: 'OK',
+                style: 'cancel',
+                onPress: () => console.log('OK Pressed'),
+              },
+            ]
+          );
+        }}
+      >
+        <View style={styles.dateTextContainer}>
+          <Text style={styles.dateText}>{date}</Text>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -84,9 +66,10 @@ const Calendar: React.FC<Props> = () => {
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
       ref={scrollViewRef}
-      scrollEventThrottle={16}>
+      scrollEventThrottle={16}
+    >
       <View style={styles.dateItemContainer}>
-        {dates.map(date => renderDateItem(date))}
+        {dates.map((date) => renderDateItem(date))}
       </View>
     </ScrollView>
   );
@@ -125,13 +108,14 @@ const styles = StyleSheet.create({
     zIndex: 1, // Add zIndex property
     backgroundColor: '#7a7afa'
   },
+  dateTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   dateText: {
     fontSize: 20,
     fontFamily: 'Robotica-Italic',
     color: '#ffffff',
-  },
-  dropdownButton: {
-    marginLeft: 'auto',
   },
 });
 
