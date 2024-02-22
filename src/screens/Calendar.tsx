@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import globalStyles from '../styles/PageStyles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -54,22 +55,27 @@ const Calendar: React.FC<Props> = () => {
     return (
       <View style={styles.dateItem} key={date}>
         <Text style={styles.dateText}>{date}</Text>
+
         <TouchableOpacity
           style={styles.dropdownButton}
-          onPress={() => toggleDropdown(date)}>
+          onPress={() => {
+            Alert.alert(
+              'Schedule',
+              dropdownData
+                .map(item => `${item.time} - ${item.event}`)
+                .join('\n'),
+              [
+                {
+                  text: 'OK',
+                  style: 'cancel',
+                  onPress: () => console.log('OK Pressed'),
+                },
+              ],
+              {cancelable: false},
+            );
+          }}>
           <MaterialCommunityIcons name="chevron-down" size={24} color="black" />
         </TouchableOpacity>
-        {/* Dropdown menu */}
-        {isDropdownOpen[date] && (
-          <View style={styles.dropdownMenu}>
-            {dropdownData.map((item, index) => (
-              <TouchableOpacity style={styles.dropdownMenuItem} key={index}>
-                <Text>{item.time}</Text>
-                <Text>{item.event}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
       </View>
     );
   };
@@ -100,9 +106,12 @@ const styles = StyleSheet.create({
   dateItem: {
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: '#7a7afa',
+    borderTopColor: '#000000',
     borderBottomWidth: 5,
-    borderBottomColor: '#7a7afa',
+    borderBottomColor: '#000000',
+    borderLeftColor: '#000000', // Color of the left border
+    borderRightColor: '#000000', // Color of the right border
+    opacity: 0.8,
     padding: 10,
     width: '100%',
     alignSelf: 'flex-start',
@@ -112,47 +121,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderLeftWidth: 1, // Add left border width
     borderRightWidth: 5, // Add right border width
-    borderLeftColor: '#7a7afa', // Color of the left border
-    borderRightColor: '#7a7afa', // Color of the right border
     position: 'relative', // Add position property
     zIndex: 1, // Add zIndex property
+    backgroundColor: '#7a7afa'
   },
   dateText: {
     fontSize: 20,
+    fontFamily: 'Robotica-Italic',
+    color: '#ffffff',
   },
   dropdownButton: {
     marginLeft: 'auto',
   },
-  dropdownMenu: {
-    position: 'absolute',
-    top: '100%', // Position below the date item
-    left: 0,
-    right: 0,
-    backgroundColor: '#fff',
-    zIndex: 2,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    marginTop: 5,
-  },
-  dropdownMenuItem: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
 });
 
 export default Calendar;
-// import React from 'react';
-// import {View, Text} from 'react-native';
-// import {globalStyles} from '../styles/PageStyles';
-// interface ScreenProps {}
-
-// const CompetitionScreen: React.FC<ScreenProps> = () => {
-//   return (
-//     <View style={globalStyles.container}>
-//       <Text style={globalStyles.text}>{'Competition Info'}</Text>
-//     </View>
-//   );
-// };
-
-// export default CompetitionScreen;
