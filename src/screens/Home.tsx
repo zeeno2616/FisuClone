@@ -1,11 +1,16 @@
+/*
+  Home Screen: First Screen user is greeted with when they open the app.
+  Currently setup to showcase basic functionality of how the final app will run.
+  TO DO: Rework buttons and screens to implement the actual screens to be added to the final app.
+  TO DO: Fix styling to prevent overflow of buttons and text.
+*/
 import React from 'react';
 import {View, StyleSheet, Text, FlatList} from 'react-native';
-import {StackNavigationProp} from '@react-navigation/stack'; // Import StackNavigationProp
-import {RootStackParamList} from '../navigation/StackNavigation'; // Import RootStackParamList type
 import RoundIcon from '../components/RoundIcon';
 import RectangularButton from '../components/RectangleButton';
 import {useNavigation} from '@react-navigation/native';
-
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../navigation/StackNavigation';
 interface ScreenProps {}
 
 const topIcons = [

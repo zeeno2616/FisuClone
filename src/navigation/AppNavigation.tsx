@@ -1,12 +1,20 @@
+/*
+  Main Nested Navigation setup of the app
+  Currently includes a tab navigator and a stack navigator nested in the first component
+  TO DO: (Maybe) move this system out of a separate file and into the main App.tsx file
+  TO DO: Add more screens as required
+*/
 /* eslint-disable react/no-unstable-nested-components */
+
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import CompetitionScreen from '../screens/Competition';
 import CalendarScreen from '../screens/Calendar';
 import ProfileScreen from '../screens/Profile';
-import CompetitionScreen from '../screens/Competition';
 import NavBarIcon from '../components/NavBarIcon';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import StackNavigation from './StackNavigation';
+
 function AppNavigation(): React.JSX.Element {
   const Tab = createBottomTabNavigator();
   return (
@@ -31,7 +39,7 @@ function AppNavigation(): React.JSX.Element {
             marginBottom: 5,
           },
         }}>
-        <Tab.Screen
+        <Tab.Screen // Tab Navigator 1: Home
           name="Home"
           component={StackNavigation}
           options={{
@@ -45,7 +53,7 @@ function AppNavigation(): React.JSX.Element {
             ),
           }}
         />
-        <Tab.Screen
+        <Tab.Screen // Tab Navigator 2: Competition
           name="Competition"
           component={CompetitionScreen}
           options={{
@@ -59,7 +67,7 @@ function AppNavigation(): React.JSX.Element {
             ),
           }}
         />
-        <Tab.Screen
+        <Tab.Screen // Tab Navigator 3: Calendar
           name="Calendar"
           component={CalendarScreen}
           options={{
@@ -73,7 +81,7 @@ function AppNavigation(): React.JSX.Element {
             ),
           }}
         />
-        <Tab.Screen
+        <Tab.Screen // Tab Navigator 4: Profile
           name="Profile"
           component={ProfileScreen}
           options={{
